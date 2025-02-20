@@ -2,7 +2,8 @@ program colas_ej3;
 
 uses
     sysutils,
-    uColaInteger;
+    uColaInteger,
+    uPilaInteger;
 
 function bool_to_str(b: boolean): string;
 begin
@@ -34,8 +35,29 @@ end;
         - (cola: [1, 2, 3, 4, 5]) => 5 4 3 2 1
 }
 procedure mostrar_inverso_pila(c: tCola);
+var
+    p: tPilaEnteros;
+    aux: tCola;
 begin
-    WriteLn('No implementado');
+    uColaInteger.copy(c, aux);
+    while not uColaInteger.empty_queue(aux) do
+    begin
+      uPilaInteger.initialize(p);   //Si la inicializo no va.
+      push(p, uColaInteger.first(aux));
+      uColaInteger.dequeue(aux);
+    end;
+
+    Write('[');
+
+    while not uPilaInteger.isEmpty(p) do
+    begin
+       Write(IntToStr(peek(p)));
+       pop(p);
+       if not uPilaInteger.isEmpty(p) then
+           Write(', ');
+    end;
+    WriteLn(']');
+
 end;
 
 
@@ -54,12 +76,13 @@ begin
     enqueue(c, 5);
 
     WriteLn('Cola original:');
-    WriteLn(toString(c));
+    WriteLn(uColaInteger.toString(c));
 
     WriteLn;
     WriteLn('Mostrar inverso con pila:');
     mostrar_inverso_pila(c);
     WriteLn;
     WriteLn('Cola original:');
-    WriteLn(toString(c));
+    WriteLn(uColaInteger.toString(c));
+    ReadLn;
 end.
