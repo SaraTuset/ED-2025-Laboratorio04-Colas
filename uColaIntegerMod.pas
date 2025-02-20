@@ -12,6 +12,7 @@ type
     // Estructura de la cola
     tCola = record
         first, last: ^nodo; // Punteros al primer y último nodo
+        num_elems: Integer; //Ej 2.1: añadir un contador de elementos
     end;
 
 { --- Operaciones básicas de la cola --- }
@@ -42,6 +43,7 @@ procedure initialize_queue(var c: tCola);
 begin
     c.first := nil; // Establecer el primer nodo a nil
     c.last := nil;  // Establecer el último nodo a nil
+    c.num_elems:=0; //Ej 2.2: que actualicen el contador de elementos
 end;
 
 // Verificar si la cola está vacía
@@ -79,6 +81,7 @@ begin
     else
         c.last^.sig := nuevo; // Establecer el siguiente nodo del último nodo al nuevo nodo
     c.last := nuevo; // Establecer el último nodo al nuevo nodo
+    c.num_elems += 1; //Ej 2.2: que actualicen el contador de elementos
 end;
 
 // Eliminar un elemento de la cola
@@ -93,6 +96,7 @@ begin
         dispose(aux); // Liberar la memoria del nodo auxiliar
         if c.first = nil then
             c.last := nil; // Establecer el último nodo a nil si la cola está vacía
+        c.num_elems -= 1; //Ej 2.2: que actualicen el contador de elementos
     end;
 end;
 
@@ -127,20 +131,12 @@ begin
 end;
 
 
+//Ej 2.3: Completa la funció num_elems para que devuelva el número de elementos
+//de la cola en tiempo constante (O(1)).
 // Contar el número de elementos de la cola
 function num_elems(c: tCola): integer;
-var
-    aux: ^nodo; // Nodo auxiliar
-    count: integer; // Contador
 begin
-    aux := c.first; // Establecer el nodo auxiliar al primer nodo
-    count := 0; // Inicializar el contador
-    while aux <> nil do
-    begin
-        count := count + 1; // Incrementar el contador
-        aux := aux^.sig; // Avanzar al siguiente nodo
-    end;
-    num_elems := count; // Devolver el contador
+    num_elems := c.num_elems;
 end;
 
 // Copiar una cola

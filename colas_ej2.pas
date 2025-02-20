@@ -100,4 +100,5 @@ begin
     probar_ejercicio;
     readln;
     analizar_tiempo;
+    ReadLn;
 end.
