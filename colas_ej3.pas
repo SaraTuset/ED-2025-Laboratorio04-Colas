@@ -40,9 +40,9 @@ var
     aux: tCola;
 begin
     uColaInteger.copy(c, aux);
+    uPilaInteger.initialize(p);   //Si la inicializo no va.
     while not uColaInteger.empty_queue(aux) do
     begin
-      uPilaInteger.initialize(p);   //Si la inicializo no va.
       push(p, uColaInteger.first(aux));
       uColaInteger.dequeue(aux);
     end;

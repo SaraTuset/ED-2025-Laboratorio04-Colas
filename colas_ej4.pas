@@ -29,7 +29,19 @@ end;
 }
 procedure sumar_colas(c1, c2: tCola; var c3: tCola);
 begin
-    WriteLn('No implementado');
+    initialize_queue(c3);
+    while not (empty_queue(c1) and empty_queue(c2)) do
+    begin
+      if empty_queue(c1) then
+          enqueue(c3, first(c2))
+      else if empty_queue(c2) then
+          enqueue(c3, first(c1))
+      else
+          enqueue(c3, first(c1) + first(c2));
+      dequeue(c1);
+      dequeue(c2);
+
+    end;
 end;
 
 
@@ -77,7 +89,7 @@ begin
     initialize_queue(c);
     enqueue(c, 5);
     enqueue(c, 7);
-    enqueue(c, 3);
+    enqueue(c, 9);
 end;
 
 procedure crear_cola_suma_3(var c: tCola);
@@ -103,14 +115,14 @@ begin
 
     crear_cola_3(c1);
     crear_cola_4(c2);
-    crear_cola_suma_2(cCorrecta);
+    crear_cola_suma_3(cCorrecta);
     sumar_colas(c1, c2, c3);
     resultado := toString(c3);
     WriteLn('Test 2: ', resultado, ' = ', toString(cCorrecta) , ' El ejercicio funciona ', bool_to_str(resultado = toString(cCorrecta)));
 
     crear_cola_1(c1);
     crear_cola_4(c2);
-    crear_cola_suma_3(cCorrecta);
+    crear_cola_suma_2(cCorrecta);
     sumar_colas(c1, c2, c3);
     resultado := toString(c3);
     WriteLn('Test 3: ', resultado, ' = ', toString(cCorrecta) , ' El ejercicio funciona ', bool_to_str(resultado = toString(cCorrecta)));
@@ -119,5 +131,6 @@ end;
 
 begin
     test_sumar_colas();
+    readln;
 end.
     
