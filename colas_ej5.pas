@@ -36,8 +36,21 @@ end;
 { Complejidad en tiempo: O(n) }
 { Complejidad en espacio: O(1) }
 function esta_en_la_cola(var c: tCola; n: integer): boolean;
+var
+    aux: tCola;
+    b: Boolean;
 begin
-    writeln('No implementado');
+     b:= False;
+    initialize_queue(aux);
+    while not empty_queue(c) do
+          begin
+            if first(c) = n then
+               b := True;
+            enqueue(aux, first(c));
+            dequeue(c);
+          end;
+     c := aux;
+     esta_en_la_cola := b;
 end;
 
 
@@ -67,8 +80,22 @@ end;
 }
 
 function posicion_en_cola(var c: tCola; n: integer): integer;
+var
+    aux: tCola;
+    pos, long, i: Integer;
 begin
-    writeln('No implementado');
+    pos := -1;
+    long := num_elems(c);
+    initialize_queue(aux);
+    for i:= 1 to long do
+          begin
+            if first(c) = n then
+               pos := i;
+            enqueue(aux, first(c));
+            dequeue(c);
+          end;
+     c:= aux;
+     posicion_en_cola := pos;
 end;
 
 { 
@@ -167,4 +194,5 @@ begin
     probar_ejercicio_5_1;
     probar_ejercicio_5_2;
     probar_ejercicio_5_3;
+    ReadLn;
 end.
